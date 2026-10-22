@@ -25,6 +25,7 @@ import com.sky.vo.DishVO;
 
 import lombok.extern.slf4j.Slf4j;
 
+//菜品管理
 @RestController
 @RequestMapping("/admin/dish")
 @Slf4j

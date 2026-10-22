@@ -1,33 +1,37 @@
 # ============================================================
-# 敏感信息配置模板（数据库密码 / JWT 密钥）
+# 敏感信息配置模板
 # ------------------------------------------------------------
-# 这是模板文件，里面全是占位符，可以直接提交到 git。
-#
-# 【怎么用】
-#   1. 把本文件复制一份，去掉 .example 后缀，得到 application-env.yml
-#      （在 resources 目录下：cp application-env.yml.example application-env.yml）
-#   2. 把下面的占位符改成你自己的真实值
-#   3. application-env.yml 已被 .gitignore 忽略，不会被提交 —— 密码不会泄露
-#
-# 【它是怎么生效的】
-#   application.yml 里有 spring.profiles.include: env，
-#   会自动加载本文件（application-env.yml），并覆盖 application.yml 中的同名项。
-#
-# 【不填会怎样】
-#   后端能启动，但一登录就报空指针、一连数据库就报认证失败。
+# 1. 复制本文件为 application-env.yml（去掉 .example 后缀）
+#    application-env.yml 已被 .gitignore 忽略，不会提交
+# 2. 把下面的占位符改成你自己的真实值
+# 3. 后端启动时会自动加载（application.yml 里 include: env）
 # ============================================================
 
 spring:
   datasource:
-    # 你的 MySQL root 密码
-    password: 你的数据库密码
-  data:
-    redis:
-      # 你的 Redis 密码；若 Redis 没设密码，删掉这一行（或留空）
-      password: 你的Redis密码
+    # MySQL root 密码
+    password: 你的MySQL密码
 
 sky:
   jwt:
-    # JWT 签名密钥，随便一串足够长的字符即可，必须与下面保持独立
+    # 管理端 / 用户端 JWT 签名密钥，随便一串足够长的随机字符，两者不要相同
     admin-secret-key: 你的管理端JWT密钥
     user-secret-key: 你的用户端JWT密钥
+
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    # Redis 没有设置密码就保持空字符串
+    password: ""
+
+  alioss:
+    # 图片上传使用阿里云 OSS，需要先在控制台创建 Bucket
+    endpoint: oss-cn-beijing.aliyuncs.com
+    access-key-id: 你的AccessKeyId
+    access-key-secret: 你的AccessKeySecret
+    bucket-name: 你的Bucket名称
+
+  wechat:
+    appid: 你的小程序AppID
+    secret: 你的小程序AppSecret

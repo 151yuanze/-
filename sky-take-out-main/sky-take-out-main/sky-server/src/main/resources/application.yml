@@ -3,7 +3,6 @@ server:
 
 spring:
   profiles:
-    active: dev
     include:
       - env # 在当前目录下新建 application-env.yml 配置敏感信息
   main:
@@ -16,10 +15,12 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
   data:
     redis:
-      host: 127.0.0.1
-      port: 6379
-      # password 见 application-env.yml（敏感信息，已被 git 忽略）
+      host: ${sky.redis.host}
+      port: ${sky.redis.port}
+      # password 见 application-env.yml；未配置时为空（无密码）
+      password: ${sky.redis.password:}
       timeout: 3000ms
+      database: ${sky.redis.database}
 
 # knife4j配置
 springdoc:
@@ -66,3 +67,12 @@ sky:
     # 小程序的jwt配置，user-secret-key 见 application-env.yml
     user-ttl: 7200000
     user-token-name: authentication
+
+  alioss:
+    endpoint: ${sky.alioss.endpoint}
+    access-key-id: ${sky.alioss.access-key-id}
+    access-key-secret: ${sky.alioss.access-key-secret}
+    bucket-name: ${sky.alioss.bucket-name}
+  wechat:
+    appid: ${sky.wechat.appid}
+    secret: ${sky.wechat.secret}
